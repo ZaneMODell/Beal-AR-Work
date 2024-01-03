@@ -81,11 +81,11 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     int m_NumberOfTrackedImages;
 
-    NumberManager m_OneNumberManager;
-    NumberManager m_TwoNumberManager;
-
     static Guid s_FirstImageGUID;
     static Guid s_SecondImageGUID;
+
+    [SerializeField]
+    GameObject m_ARCanvas;
 
     void OnEnable()
     {
@@ -108,12 +108,10 @@ public class ImageTrackingObjectManager : MonoBehaviour
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
-                //m_OneNumberManager = m_SpawnedOnePrefab.GetComponent<NumberManager>();
             }
             else if (image.referenceImage.guid == s_SecondImageGUID)
             {
                 m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
-                //m_TwoNumberManager = m_SpawnedTwoPrefab.GetComponent<NumberManager>();
             }
         }
 
@@ -125,13 +123,13 @@ public class ImageTrackingObjectManager : MonoBehaviour
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
-                    //m_OneNumberManager.Enable3DNumber(true);
                     m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                    m_SpawnedPlantPrefab.SetActive(true);
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
-                    //m_TwoNumberManager.Enable3DNumber(true);
                     m_SpawnedFrogPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                    m_SpawnedFrogPrefab.SetActive(true);
                 }
             }
             // image is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
@@ -139,11 +137,11 @@ public class ImageTrackingObjectManager : MonoBehaviour
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
-                    //m_OneNumberManager.Enable3DNumber(false);
+                    m_SpawnedPlantPrefab.SetActive(false);
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
-                    //m_TwoNumberManager.Enable3DNumber(false);
+                    m_SpawnedFrogPrefab.SetActive(false);
                 }
             }
         }
@@ -180,6 +178,14 @@ public class ImageTrackingObjectManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             Debug.Log(NumberOfTrackedImages());
+        }
+        if (NumberOfTrackedImages() > 0)
+        {
+            m_ARCanvas.SetActive(true);
+        }
+        else
+        {
+            m_ARCanvas.SetActive(false);
         }
     }
 }

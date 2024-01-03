@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ViewerModeButton : MonoBehaviour
 {
+
+    [SerializeField]
+    GameObject m_TestText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +20,15 @@ public class ViewerModeButton : MonoBehaviour
         
     }
 
-    void EnableViewerMode()
+    public void EnableViewerMode()
     {
-        
+        if (m_TestText.activeSelf)
+        {
+            m_TestText.SetActive(false);
+        }
+        else
+        {
+            m_TestText.SetActive(true);
+        }
     }
 }
