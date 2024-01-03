@@ -8,6 +8,18 @@ public class TrackedImageInfo : MonoBehaviour
     [SerializeField]
     ARTrackedImageManager m_TrackedImageManager;
 
+
+    [SerializeField]
+    GameObject m_PlantModel;
+
+    [SerializeField]
+    GameObject m_FrogModel;
+
+    private void Start()
+    {
+        m_TrackedImageManager.trackedImagePrefab = m_FrogModel;
+    }
+
     void OnEnable() => m_TrackedImageManager.trackedImagesChanged += OnChanged;
 
     void OnDisable() => m_TrackedImageManager.trackedImagesChanged -= OnChanged;
@@ -47,6 +59,12 @@ public class TrackedImageInfo : MonoBehaviour
         {
             Debug.Log($"Image: {trackedImage.referenceImage.name} is at " +
                       $"{trackedImage.transform.position}");
+
+            if (trackedImage.referenceImage.name == "qrcode")
+            {
+                m_TrackedImageManager.trackedImagePrefab = m_FrogModel;
+            }
+            Debug.Log(m_TrackedImageManager.trackedImagePrefab.name);
         }
     }
 }

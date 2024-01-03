@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 916d23a53d7ca654b89713e0522ba649, type: 2}
+  - {fileID: 2100000, guid: 089780b46e474db448ea7d4836493be7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 8687952604547441517}
   - component: {fileID: 7027700216025616306}
   m_Layer: 31
-  m_Name: Frog Image
+  m_Name: QRCode Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39bb24e2bd7a482ca08117fb44b8e44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Image: {fileID: 2800000, guid: f7b8eda16218f5f4383f42479930d3b4, type: 3}
+  m_Image: {fileID: 2800000, guid: 657f5a75e5801964391f960981d57d27, type: 3}
   m_ImagePhysicalSizeMeters: {x: 0.5, y: 0.5}
 --- !u!1 &4032331652841451580
 GameObject:

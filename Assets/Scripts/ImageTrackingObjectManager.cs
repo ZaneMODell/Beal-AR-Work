@@ -1,0 +1,185 @@
+using System;
+using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARSubsystems;
+
+public class ImageTrackingObjectManager : MonoBehaviour
+{
+    [SerializeField]
+    [Tooltip("Image manager on the AR Session Origin")]
+    ARTrackedImageManager m_ImageManager;
+
+    /// <summary>
+    /// Get the <c>ARTrackedImageManager</c>
+    /// </summary>
+    public ARTrackedImageManager ImageManager
+    {
+        get => m_ImageManager;
+        set => m_ImageManager = value;
+    }
+
+    [SerializeField]
+    [Tooltip("Reference Image Library")]
+    XRReferenceImageLibrary m_ImageLibrary;
+
+    /// <summary>
+    /// Get the <c>XRReferenceImageLibrary</c>
+    /// </summary>
+    public XRReferenceImageLibrary ImageLibrary
+    {
+        get => m_ImageLibrary;
+        set => m_ImageLibrary = value;
+    }
+
+    [SerializeField]
+    [Tooltip("Prefab for tracked 1 image")]
+    GameObject m_PlantPrefab;
+
+    /// <summary>
+    /// Get the one prefab
+    /// </summary>
+    public GameObject plantPrefab
+    {
+        get => m_PlantPrefab;
+        set => m_PlantPrefab = value;
+    }
+
+    GameObject m_SpawnedPlantPrefab;
+
+    /// <summary>
+    /// get the spawned one prefab
+    /// </summary>
+    public GameObject spawnedPlantPrefab
+    {
+        get => m_SpawnedPlantPrefab;
+        set => m_SpawnedPlantPrefab = value;
+    }
+
+    [SerializeField]
+    [Tooltip("Prefab for tracked 2 image")]
+    GameObject m_FrogPrefab;
+
+    /// <summary>
+    /// get the two prefab
+    /// </summary>
+    public GameObject frogPrefab
+    {
+        get => m_FrogPrefab;
+        set => m_FrogPrefab = value;
+    }
+
+    GameObject m_SpawnedFrogPrefab;
+
+    /// <summary>
+    /// get the spawned two prefab
+    /// </summary>
+    public GameObject spawnedFrogPrefab
+    {
+        get => m_SpawnedFrogPrefab;
+        set => m_SpawnedFrogPrefab = value;
+    }
+
+    int m_NumberOfTrackedImages;
+
+    NumberManager m_OneNumberManager;
+    NumberManager m_TwoNumberManager;
+
+    static Guid s_FirstImageGUID;
+    static Guid s_SecondImageGUID;
+
+    void OnEnable()
+    {
+        s_FirstImageGUID = m_ImageLibrary[0].guid;
+        s_SecondImageGUID = m_ImageLibrary[1].guid;
+
+        m_ImageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
+    }
+
+    void OnDisable()
+    {
+        m_ImageManager.trackedImagesChanged -= ImageManagerOnTrackedImagesChanged;
+    }
+
+    void ImageManagerOnTrackedImagesChanged(ARTrackedImagesChangedEventArgs obj)
+    {
+        // added, spawn prefab
+        foreach (ARTrackedImage image in obj.added)
+        {
+            if (image.referenceImage.guid == s_FirstImageGUID)
+            {
+                m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
+                //m_OneNumberManager = m_SpawnedOnePrefab.GetComponent<NumberManager>();
+            }
+            else if (image.referenceImage.guid == s_SecondImageGUID)
+            {
+                m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
+                //m_TwoNumberManager = m_SpawnedTwoPrefab.GetComponent<NumberManager>();
+            }
+        }
+
+        // updated, set prefab position and rotation
+        foreach (ARTrackedImage image in obj.updated)
+        {
+            // image is tracking or tracking with limited state, show visuals and update it's position and rotation
+            if (image.trackingState == TrackingState.Tracking)
+            {
+                if (image.referenceImage.guid == s_FirstImageGUID)
+                {
+                    //m_OneNumberManager.Enable3DNumber(true);
+                    m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                }
+                else if (image.referenceImage.guid == s_SecondImageGUID)
+                {
+                    //m_TwoNumberManager.Enable3DNumber(true);
+                    m_SpawnedFrogPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                }
+            }
+            // image is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
+            else
+            {
+                if (image.referenceImage.guid == s_FirstImageGUID)
+                {
+                    //m_OneNumberManager.Enable3DNumber(false);
+                }
+                else if (image.referenceImage.guid == s_SecondImageGUID)
+                {
+                    //m_TwoNumberManager.Enable3DNumber(false);
+                }
+            }
+        }
+
+        // removed, destroy spawned instance
+        foreach (ARTrackedImage image in obj.removed)
+        {
+            if (image.referenceImage.guid == s_FirstImageGUID)
+            {
+                Destroy(m_SpawnedPlantPrefab);
+            }
+            else if (image.referenceImage.guid == s_SecondImageGUID)
+            {
+                Destroy(m_SpawnedFrogPrefab);
+            }
+        }
+    }
+
+    public int NumberOfTrackedImages()
+    {
+        m_NumberOfTrackedImages = 0;
+        foreach (ARTrackedImage image in m_ImageManager.trackables)
+        {
+            if (image.trackingState == TrackingState.Tracking)
+            {
+                m_NumberOfTrackedImages++;
+            }
+        }
+        return m_NumberOfTrackedImages;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log(NumberOfTrackedImages());
+        }
+    }
+}
