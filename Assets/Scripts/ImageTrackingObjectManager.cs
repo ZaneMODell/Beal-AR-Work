@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+//using UnityEngine.Formats.Alembic.Importer;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -38,7 +39,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// Get the one prefab
     /// </summary>
-    public GameObject plantPrefab
+    public GameObject PlantPrefab
     {
         get => m_PlantPrefab;
         set => m_PlantPrefab = value;
@@ -49,7 +50,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// get the spawned one prefab
     /// </summary>
-    public GameObject spawnedPlantPrefab
+    public GameObject SpawnedPlantPrefab
     {
         get => m_SpawnedPlantPrefab;
         set => m_SpawnedPlantPrefab = value;
@@ -62,7 +63,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// get the two prefab
     /// </summary>
-    public GameObject frogPrefab
+    public GameObject FrogPrefab
     {
         get => m_FrogPrefab;
         set => m_FrogPrefab = value;
@@ -73,7 +74,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// get the spawned two prefab
     /// </summary>
-    public GameObject spawnedFrogPrefab
+    public GameObject SpawnedFrogPrefab
     {
         get => m_SpawnedFrogPrefab;
         set => m_SpawnedFrogPrefab = value;
@@ -108,6 +109,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
+                //m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, Quaternion.identity);
             }
             else if (image.referenceImage.guid == s_SecondImageGUID)
             {
@@ -123,8 +125,10 @@ public class ImageTrackingObjectManager : MonoBehaviour
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
+                    //m_SpawnedPlantPrefab.transform.position = image.transform.position;
                     m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
                     m_SpawnedPlantPrefab.SetActive(true);
+                    //m_SpawnedPlantPrefab.GetComponent<AlembicStreamPlayer>().CurrentTime += Time.deltaTime * 5;
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
@@ -138,6 +142,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
                     m_SpawnedPlantPrefab.SetActive(false);
+                    //m_SpawnedPlantPrefab.GetComponent<AlembicStreamPlayer>().CurrentTime = 0;
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
