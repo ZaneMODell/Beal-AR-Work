@@ -1,49 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ARCanvasManager : MonoBehaviour
 {
+    public GameObject viewButton;
 
-    [SerializeField]
-    TextMeshProUGUI m_TestText;
+    public GameObject arButton;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public ViewManager m_ViewManager;
 
     public void EnableViewerMode()
     {
-        if (m_TestText.gameObject.activeSelf)
-        {
-            m_TestText.gameObject.SetActive(false);
-        }
-        else
-        {
-            m_TestText.text = "Hey, Viewer mode has been enabled!";
-            m_TestText.gameObject.SetActive(true);
-        }
+        m_ViewManager.SwitchToModelView();
+        viewButton.SetActive(false);
+        arButton.SetActive(true);
     }
 
     public void EnableARMode()
     {
-        if (m_TestText.gameObject.activeSelf)
-        {
-            m_TestText.gameObject.SetActive(false);
-        }
-        else
-        {
-            m_TestText.text = "Hey, AR mode has been enabled!";
-            m_TestText.gameObject.SetActive(true);
-        }
+        m_ViewManager.SwitchToARView();
+        viewButton.SetActive(true);
+        arButton.SetActive(false);
     }
 }
