@@ -92,17 +92,12 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     void OnEnable()
     {
-        print("exception in OnEnable");
         if (s_FirstImageGUID != m_ImageLibrary[0].guid || s_SecondImageGUID != m_ImageLibrary[1].guid)
         {
-            print("exception in the if statement");
             s_FirstImageGUID = m_ImageLibrary[0].guid;
-            print("exception with first image guid check");
             s_SecondImageGUID = m_ImageLibrary[1].guid;
-            print("exception with second image guid check");
         };
         m_ImageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
-        print("exception with subscribing to event");
     }
 
     void OnDisable()
@@ -115,7 +110,6 @@ public class ImageTrackingObjectManager : MonoBehaviour
         // added, spawn prefab
         foreach (ARTrackedImage image in obj.added)
         {
-            Debug.Log("exception in subscribed event");
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
