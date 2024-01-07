@@ -12,19 +12,23 @@ public class ARCanvasManager : MonoBehaviour
 
     public TextMeshProUGUI testText;
 
+    /// <summary>
+    /// Function that enables the model viewer mode via a UI Button Press
+    /// </summary>
     public void EnableViewerMode()
     {
         m_ViewManager.SwitchToModelView();
         viewButton.SetActive(false);
         arButton.SetActive(true);
-        //testText.text = "Made it through viewer mode";
     }
 
+    /// <summary>
+    /// Function that enables the AR viewer mode via a UI Button Press
+    /// </summary>
     public void EnableARMode()
     {
         m_ViewManager.SwitchToARView();
         viewButton.SetActive(true);
         arButton.SetActive(false);
-        //testText.text = "Made it through ar mode";
     }
 }

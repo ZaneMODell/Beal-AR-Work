@@ -184,10 +184,6 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Debug.Log(NumberOfTrackedImages());
-        }
         if (NumberOfTrackedImages() > 0 || m_ViewManager.m_viewState == ViewManager.ViewState.Model)
         {
             m_ARCanvas.SetActive(true);
