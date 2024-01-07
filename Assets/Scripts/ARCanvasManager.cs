@@ -17,7 +17,7 @@ public class ARCanvasManager : MonoBehaviour
         m_ViewManager.SwitchToModelView();
         viewButton.SetActive(false);
         arButton.SetActive(true);
-        testText.text = "Made it through viewer mode";
+        //testText.text = "Made it through viewer mode";
     }
 
     public void EnableARMode()
@@ -25,6 +25,6 @@ public class ARCanvasManager : MonoBehaviour
         m_ViewManager.SwitchToARView();
         viewButton.SetActive(true);
         arButton.SetActive(false);
-        testText.text = "Made it through ar mode";
+        //testText.text = "Made it through ar mode";
     }
 }

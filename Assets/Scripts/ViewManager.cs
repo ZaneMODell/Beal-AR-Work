@@ -80,7 +80,6 @@ public class ViewManager : MonoBehaviour
     public void SwitchToModelView()
     {
         testText.text = "Starting model view switch";
-        //m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.zero;
         GameObject[] activeAndInactive = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject go in activeAndInactive)
         {
@@ -88,22 +87,10 @@ public class ViewManager : MonoBehaviour
             {
                 go.transform.localScale = Vector3.zero;
             }
-        }
-        if (m_SimulationCamera)
-        {
-            testText.text = m_SimulationCamera.name;
-            m_SimulationCamera.SetActive(false);
-        }
-        else
-        {
-            testText.text = "simulation camera is null";
-            return;
-        }
-        
+        }      
         m_MainCamera.enabled = false;
-        modelCam.SetActive(true);
         m_viewState = ViewState.Model;
-        testText.text = "ending model view switch";
+        //testText.text = "ending model view switch";
     }
 
     public void SwitchToARView()
@@ -121,20 +108,8 @@ public class ViewManager : MonoBehaviour
                 go.transform.localScale = Vector3.one;
             }
         }
-        //m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.one;
-        if (m_SimulationCamera)
-        {
-            testText.text = m_SimulationCamera.name;
-            m_SimulationCamera.SetActive(true);
-        }
-        else
-        {
-            testText.text = "simulation camera is null";
-            return;
-        }
         m_MainCamera.enabled = true;
-        modelCam.SetActive(false);
         m_viewState = ViewState.AR;
-        testText.text = "ending AR view switch";
+        //testText.text = "ending AR view switch";
     }
 }
