@@ -32,7 +32,6 @@ public class ViewManager : MonoBehaviour
     {
         m_viewState = ViewState.AR;
         m_SimulationCamera = GameObject.Find("SimulationCamera");
-        testText.text = SceneManager.GetSceneAt(0).name;
     }
 
     private void Update()
@@ -53,20 +52,26 @@ public class ViewManager : MonoBehaviour
             foreach (GameObject go in allObjects)
                 if (go.activeInHierarchy)
                     testText.text += go.name + "/";
-            if (m_SimulationEnvironment)
-            {
-                testText.text += m_SimulationEnvironment.name + "(Environment was already found)/";
-                logBool = true;
-            }
-            else
-            {
-                if (GameObject.Find("SimEnvironmentProbe"))
-                {
-                    m_SimulationEnvironment = GameObject.Find("SimEnvironmentProbe").transform.parent.gameObject;
-                    testText.text += m_SimulationEnvironment.name + "/";
-                    logBool = true;
-                }
-            }
+
+            logBool = true;
+            //if (m_SimulationEnvironment)
+            //{
+            //    testText.text += m_SimulationEnvironment.name + "(Environment was already found)/";
+            //    logBool = true;
+            //}
+            //else
+            //{
+            //    if (GameObject.Find("SimEnvironmentProbe"))
+            //    {
+            //        m_SimulationEnvironment = GameObject.Find("SimEnvironmentProbe").transform.parent.gameObject;
+            //        testText.text += m_SimulationEnvironment.name + "/";
+            //    }
+            //    else
+            //    {
+            //        testText.text += Camera.main.name;
+            //    }
+            //    logBool = true;
+            //}
             
         }
         
@@ -75,8 +80,26 @@ public class ViewManager : MonoBehaviour
     public void SwitchToModelView()
     {
         testText.text = "Starting model view switch";
-        m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.zero;
-        m_SimulationCamera.SetActive(false);
+        //m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.zero;
+        GameObject[] activeAndInactive = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (GameObject go in activeAndInactive)
+        {
+            if (go.tag == "ARObject")
+            {
+                go.transform.localScale = Vector3.zero;
+            }
+        }
+        if (m_SimulationCamera)
+        {
+            testText.text = m_SimulationCamera.name;
+            m_SimulationCamera.SetActive(false);
+        }
+        else
+        {
+            testText.text = "simulation camera is null";
+            return;
+        }
+        
         m_MainCamera.enabled = false;
         modelCam.SetActive(true);
         m_viewState = ViewState.Model;
@@ -86,8 +109,29 @@ public class ViewManager : MonoBehaviour
     public void SwitchToARView()
     {
         testText.text = "Starting AR view switch";
-        m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.one;
-        m_SimulationCamera.SetActive(true);
+        GameObject[] activeAndInactive = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (GameObject go in activeAndInactive)
+        {
+            if (go.tag == "ARObject")
+            {
+                if (go.transform.rotation.eulerAngles.x == -90)
+                {
+                    go.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                }
+                go.transform.localScale = Vector3.one;
+            }
+        }
+        //m_SimulationEnvironment.transform.GetComponentInChildren<Transform>().localScale = Vector3.one;
+        if (m_SimulationCamera)
+        {
+            testText.text = m_SimulationCamera.name;
+            m_SimulationCamera.SetActive(true);
+        }
+        else
+        {
+            testText.text = "simulation camera is null";
+            return;
+        }
         m_MainCamera.enabled = true;
         modelCam.SetActive(false);
         m_viewState = ViewState.AR;
