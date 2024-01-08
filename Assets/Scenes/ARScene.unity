@@ -1453,13 +1453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be3b71513fc4774ba2229cbf065ba34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testText: {fileID: 1828601337}
-  m_viewState: 0
-  m_SimulationCamera: {fileID: 0}
-  modelCam: {fileID: 1395935952}
+  m_ViewState: 0
   m_MainCamera: {fileID: 915713226}
-  m_SimulationPrefab: {fileID: 7576867131100388943, guid: e6b9a0ad87729f848a6438c3ef476729,
-    type: 3}
+  testText: {fileID: 1828601337}
 --- !u!4 &1684085970
 Transform:
   m_ObjectHideFlags: 0
@@ -1782,6 +1778,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2967015789041455563, guid: 8818244936ece2f4b96030b6c516354d,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967015789041455563, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 98523115}
@@ -1789,6 +1790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: EnableViewerMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 2967015789041455563, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: ARCanvasManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3306495108654709481, guid: 8818244936ece2f4b96030b6c516354d,
         type: 3}

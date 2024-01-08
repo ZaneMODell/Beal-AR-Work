@@ -1,11 +1,16 @@
 using System;
 using UnityEngine;
-//using UnityEngine.Formats.Alembic.Importer;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+
+/// <summary>
+/// Class that manages all tracked images
+/// </summary>
 public class ImageTrackingObjectManager : MonoBehaviour
 {
+    #region Class Variables
+    #region Image Related Information
     [SerializeField]
     [Tooltip("Image manager on the AR Session Origin")]
     ARTrackedImageManager m_ImageManager;
@@ -32,6 +37,13 @@ public class ImageTrackingObjectManager : MonoBehaviour
         set => m_ImageLibrary = value;
     }
 
+    int m_NumberOfTrackedImages;
+
+    static Guid s_FirstImageGUID;
+    static Guid s_SecondImageGUID;
+    #endregion
+
+    #region Prefab References
     [SerializeField]
     [Tooltip("Prefab for tracked 1 image")]
     GameObject m_PlantPrefab;
@@ -45,6 +57,9 @@ public class ImageTrackingObjectManager : MonoBehaviour
         set => m_PlantPrefab = value;
     }
 
+    /// <summary>
+    /// Spawned plant prefab
+    /// </summary>
     GameObject m_SpawnedPlantPrefab;
 
     /// <summary>
@@ -69,6 +84,9 @@ public class ImageTrackingObjectManager : MonoBehaviour
         set => m_FrogPrefab = value;
     }
 
+    /// <summary>
+    /// Spawned frog prefab
+    /// </summary>
     GameObject m_SpawnedFrogPrefab;
 
     /// <summary>
@@ -79,17 +97,26 @@ public class ImageTrackingObjectManager : MonoBehaviour
         get => m_SpawnedFrogPrefab;
         set => m_SpawnedFrogPrefab = value;
     }
+    #endregion
 
-    int m_NumberOfTrackedImages;
-
-    static Guid s_FirstImageGUID;
-    static Guid s_SecondImageGUID;
-
+    #region AR Canvas
     [SerializeField]
+    [Tooltip("GameObject that is the AR Canvas")]
     GameObject m_ARCanvas;
+    #endregion
 
-    public ViewManager m_ViewManager;
+    #region ViewManager
+    [SerializeField]
+    [Tooltip("Reference to the View Manager")]
+    ViewManager m_ViewManager;
+    #endregion
+    #endregion
 
+    #region Methods
+    #region Unity Methods
+    /// <summary>
+    /// Unity method that is called when this object is active and enabled
+    /// </summary>
     void OnEnable()
     {
         if (s_FirstImageGUID != m_ImageLibrary[0].guid || s_SecondImageGUID != m_ImageLibrary[1].guid)
@@ -100,11 +127,37 @@ public class ImageTrackingObjectManager : MonoBehaviour
         m_ImageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
     }
 
+    /// <summary>
+    /// Unity method that is called when this object is disabled
+    /// </summary>
     void OnDisable()
     {
         m_ImageManager.trackedImagesChanged -= ImageManagerOnTrackedImagesChanged;
     }
 
+    /// <summary>
+    /// Unity method that is called once each frame (Set in Project Settings at 60 FPS)
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (NumberOfTrackedImages() > 0 || m_ViewManager.m_ViewState == ViewManager.ViewState.Model)
+        {
+            m_ARCanvas.SetActive(true);
+        }
+        else
+        {
+            m_ARCanvas.SetActive(false);
+        }
+    }
+
+    #endregion
+
+    #region Custom Methods
+
+    /// <summary>
+    /// Function that is called when the AR Tracked Images' states are changed in some way
+    /// </summary>
+    /// <param name="obj">Object representing the changed state of the AR Tracked Images</param>
     void ImageManagerOnTrackedImagesChanged(ARTrackedImagesChangedEventArgs obj)
     {
         // added, spawn prefab
@@ -113,7 +166,6 @@ public class ImageTrackingObjectManager : MonoBehaviour
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
-                //m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, Quaternion.identity);
             }
             else if (image.referenceImage.guid == s_SecondImageGUID)
             {
@@ -129,10 +181,8 @@ public class ImageTrackingObjectManager : MonoBehaviour
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
-                    //m_SpawnedPlantPrefab.transform.position = image.transform.position;
                     m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
                     m_SpawnedPlantPrefab.SetActive(true);
-                    //m_SpawnedPlantPrefab.GetComponent<AlembicStreamPlayer>().CurrentTime += Time.deltaTime * 5;
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
@@ -146,7 +196,6 @@ public class ImageTrackingObjectManager : MonoBehaviour
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
                     m_SpawnedPlantPrefab.SetActive(false);
-                    //m_SpawnedPlantPrefab.GetComponent<AlembicStreamPlayer>().CurrentTime = 0;
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
@@ -169,6 +218,10 @@ public class ImageTrackingObjectManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Function that returns the number of currently tracked images
+    /// </summary>
+    /// <returns>Returns an int that is the number of currently tracked images</returns>
     public int NumberOfTrackedImages()
     {
         m_NumberOfTrackedImages = 0;
@@ -181,16 +234,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
         }
         return m_NumberOfTrackedImages;
     }
+    #endregion
+    #endregion
 
-    private void Update()
-    {
-        if (NumberOfTrackedImages() > 0 || m_ViewManager.m_viewState == ViewManager.ViewState.Model)
-        {
-            m_ARCanvas.SetActive(true);
-        }
-        else
-        {
-            m_ARCanvas.SetActive(false);
-        }
-    }
 }

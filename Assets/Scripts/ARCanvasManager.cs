@@ -1,17 +1,31 @@
 using TMPro;
 using UnityEngine;
 
-
+/// <summary>
+/// Class that manages the AR canvas and all of its components
+/// </summary>
 public class ARCanvasManager : MonoBehaviour
 {
-    public GameObject viewButton;
+    #region Class Variables
+    [SerializeField]
+    [Tooltip("GameObject that contains the Model View Button")]
+    GameObject viewButton;
 
-    public GameObject arButton;
+    [SerializeField]
+    [Tooltip("GameObject that contains the AR View Button")]
+    GameObject arButton;
 
-    public ViewManager m_ViewManager;
+    [SerializeField]
+    [Tooltip("Reference to the ViewManager Class")]
+    ViewManager m_ViewManager;
 
-    public TextMeshProUGUI testText;
+    [SerializeField]
+    [Tooltip("Test text for debugging")]
+    TextMeshProUGUI testText;
+    #endregion
 
+    #region Methods
+    #region Custom Methods
     /// <summary>
     /// Function that enables the model viewer mode via a UI Button Press
     /// </summary>
@@ -31,4 +45,10 @@ public class ARCanvasManager : MonoBehaviour
         viewButton.SetActive(true);
         arButton.SetActive(false);
     }
+    #endregion
+    #endregion
+
+
+
+
 }
