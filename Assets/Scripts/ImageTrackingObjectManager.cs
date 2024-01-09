@@ -110,6 +110,12 @@ public class ImageTrackingObjectManager : MonoBehaviour
     [Tooltip("Reference to the View Manager")]
     ViewManager m_ViewManager;
     #endregion
+
+    #region ModelViewManager
+    [SerializeField]
+    [Tooltip("Reference to the Model View Manager")]
+    ModelViewManager m_ModelViewManager;
+    #endregion
     #endregion
 
     #region Methods
@@ -182,11 +188,14 @@ public class ImageTrackingObjectManager : MonoBehaviour
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
                     m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                    m_ModelViewManager.SetModel(m_PlantPrefab);
+                    
                     m_SpawnedPlantPrefab.SetActive(true);
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
                     m_SpawnedFrogPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+                    m_ModelViewManager.SetModel(m_FrogPrefab);
                     m_SpawnedFrogPrefab.SetActive(true);
                 }
             }
@@ -195,10 +204,12 @@ public class ImageTrackingObjectManager : MonoBehaviour
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
                 {
+                    m_ModelViewManager.ClearModel();
                     m_SpawnedPlantPrefab.SetActive(false);
                 }
                 else if (image.referenceImage.guid == s_SecondImageGUID)
                 {
+                    m_ModelViewManager.ClearModel();
                     m_SpawnedFrogPrefab.SetActive(false);
                 }
             }

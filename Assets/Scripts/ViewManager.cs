@@ -1,5 +1,7 @@
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.XR;
 
 /// <summary>
 /// Class that manages switching views
@@ -27,6 +29,15 @@ public class ViewManager : MonoBehaviour
     /// Text used for debugging purposes
     /// </summary>
     public TextMeshProUGUI testText;
+
+    [SerializeField]
+    TrackedPoseDriver m_TrackedPoseDriver;
+
+    [SerializeField]
+    Vector3 m_CamLockPosition;
+
+    [SerializeField]
+    Vector3 m_CamLockRotation;
     #endregion
 
     #region Methods
@@ -54,6 +65,9 @@ public class ViewManager : MonoBehaviour
             }
         }
         //Does some camera and state updates
+        m_CamLockPosition = m_MainCamera.transform.localPosition;
+        m_CamLockRotation = m_MainCamera.transform.rotation.eulerAngles;
+        m_TrackedPoseDriver.enabled = false;
         m_MainCamera.enabled = false;
         m_ViewState = ViewState.Model;
     }
@@ -77,8 +91,11 @@ public class ViewManager : MonoBehaviour
             }
         }
         //Does some camera and state updates
+        m_TrackedPoseDriver.enabled = true;
         m_MainCamera.enabled = true;
         m_ViewState = ViewState.AR;
+        m_MainCamera.transform.position = m_CamLockPosition;
+        m_MainCamera.transform.rotation = Quaternion.Euler(m_CamLockRotation);
     }
     #endregion
     #endregion
