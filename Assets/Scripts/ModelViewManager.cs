@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
-using UnityEngine.XR.ARFoundation;
+
 
 /// <summary>
 /// Class that manages the model view
@@ -33,20 +29,6 @@ public class ModelViewManager : MonoBehaviour
     #endregion
 
     #region Methods
-
-    #endregion
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
- 
-    }
-
     public void SetModel(GameObject plantPrefab)
     {
         if (!m_ModelSet && m_ViewManager.m_ViewState == ViewManager.ViewState.Model)
@@ -62,7 +44,7 @@ public class ModelViewManager : MonoBehaviour
 
     public void ClearModel()
     {
-        if (m_ModelSet)
+        if (m_ModelSet && m_ViewManager.m_ViewState == ViewManager.ViewState.AR)
         {
             Destroy(m_InstantiatedPlantPrefab);
             m_InstantiatedPlantPrefab = null;
@@ -70,4 +52,6 @@ public class ModelViewManager : MonoBehaviour
             m_ModelSet = false;
         }
     }
+    #endregion
+
 }
