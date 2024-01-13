@@ -23,9 +23,12 @@ public class ModelViewManager : MonoBehaviour
     [SerializeField]
     GameObject m_MainCamera;
 
-    Vector3 camPosition;
+    [SerializeField]
+    GameObject m_ModelCamera;
 
-    Quaternion camRotation;
+    public float modelHeight;
+
+    public float modelWidth;
     #endregion
 
     #region Methods
@@ -38,6 +41,11 @@ public class ModelViewManager : MonoBehaviour
             m_InstantiatedPlantPrefab.transform.localScale = Vector3.one * 20;
             m_InstantiatedPlantPrefab.transform.eulerAngles = new Vector3(m_InstantiatedPlantPrefab.transform.eulerAngles.x - 90,
                 m_InstantiatedPlantPrefab.transform.eulerAngles.y, m_InstantiatedPlantPrefab.transform.eulerAngles.z);
+            MeshFilter meshFilter = m_InstantiatedPlantPrefab.GetComponentInChildren<MeshFilter>();
+            modelHeight = meshFilter.mesh.bounds.extents.y;
+            modelWidth = meshFilter.mesh.bounds.extents.x;
+            m_ModelCamera.transform.position = m_InstantiatedPlantPrefab.transform.position - new Vector3(0, 0, modelHeight * 1000);
+            m_ModelCamera.transform.eulerAngles = Vector3.zero;
             m_ModelSet = true;
         }
     }
