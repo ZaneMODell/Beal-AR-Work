@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 1395935954}
+  camDistanceFromModel: 0
   target: {fileID: 231773645}
   m_ViewManager: {fileID: 1684085969}
   m_ModelViewManager: {fileID: 1584344600739607791}
@@ -781,13 +782,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395935952}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.043619405, w: 0.9990483}
   m_LocalPosition: {x: 4.9, y: 3.4, z: -45.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1872975591}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5}
 --- !u!81 &1395935956
 AudioListener:
   m_ObjectHideFlags: 0
@@ -796,6 +797,37 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395935952}
   m_Enabled: 1
+--- !u!1 &1682040805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682040806}
+  m_Layer: 0
+  m_Name: CamZoomInnerBound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1682040806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682040805}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1872975591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1684085968
 GameObject:
   m_ObjectHideFlags: 0
@@ -852,6 +884,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1584344600739607790}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1805587799
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1805587800}
+  m_Layer: 0
+  m_Name: CamZoomOuterBound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1805587800
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1805587799}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1872975591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1828601337 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6395699092385191667, guid: 8818244936ece2f4b96030b6c516354d,
@@ -927,6 +990,8 @@ Transform:
   m_Children:
   - {fileID: 1395935955}
   - {fileID: 1758919933}
+  - {fileID: 1682040806}
+  - {fileID: 1805587800}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2045736835
@@ -1074,6 +1139,21 @@ PrefabInstance:
       propertyPath: m_ViewManager
       value: 
       objectReference: {fileID: 1684085969}
+    - target: {fileID: 7781924610075547504, guid: 66405fbdf17df344a8cbbbc0c4f3d2f3,
+        type: 3}
+      propertyPath: m_ModelCameraInput
+      value: 
+      objectReference: {fileID: 25934125}
+    - target: {fileID: 7781924610075547504, guid: 66405fbdf17df344a8cbbbc0c4f3d2f3,
+        type: 3}
+      propertyPath: m_CamZoomInnerBound
+      value: 
+      objectReference: {fileID: 1682040806}
+    - target: {fileID: 7781924610075547504, guid: 66405fbdf17df344a8cbbbc0c4f3d2f3,
+        type: 3}
+      propertyPath: m_CamZoomOuterBound
+      value: 
+      objectReference: {fileID: 1805587800}
     - target: {fileID: 7781924610075547504, guid: 66405fbdf17df344a8cbbbc0c4f3d2f3,
         type: 3}
       propertyPath: m_PlantInstantiationPoint
