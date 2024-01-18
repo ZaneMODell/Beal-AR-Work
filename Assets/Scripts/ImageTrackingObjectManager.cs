@@ -11,6 +11,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
 {
     #region Class Variables
     #region Image Related Information
+    [Header("Image Related Info")]
     [SerializeField]
     [Tooltip("Image manager on the AR Session Origin")]
     ARTrackedImageManager m_ImageManager;
@@ -44,6 +45,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     #endregion
 
     #region Prefab References
+    [Header("Prefab References")]
     [SerializeField]
     [Tooltip("Prefab for tracked 1 image")]
     GameObject m_PlantPrefab;
@@ -100,18 +102,20 @@ public class ImageTrackingObjectManager : MonoBehaviour
     #endregion
 
     #region AR Canvas
+    [Header("AR Canvas")]
     [SerializeField]
     [Tooltip("GameObject that is the AR Canvas")]
     GameObject m_ARCanvas;
     #endregion
 
-    #region ViewManager
+
+    #region Script References
+    [Header("Script References")]
     [SerializeField]
     [Tooltip("Reference to the View Manager")]
     ViewManager m_ViewManager;
-    #endregion
 
-    #region ModelViewManager
+
     [SerializeField]
     [Tooltip("Reference to the Model View Manager")]
     ModelViewManager m_ModelViewManager;

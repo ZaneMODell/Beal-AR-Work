@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
 
@@ -9,12 +7,18 @@ using UnityEngine.InputSystem.XR;
 public class ViewManager : MonoBehaviour
 {
     #region Enum and Enum Instances
+    /// <summary>
+    /// Enum class representing the user views
+    /// </summary>
     public enum ViewState
     {
         AR,
         Model
     }
 
+    /// <summary>
+    /// Instance of the ViewState for the ViewManager
+    /// </summary>
     public ViewState m_ViewState;
     #endregion
 
@@ -26,17 +30,19 @@ public class ViewManager : MonoBehaviour
     Camera m_MainCamera;
 
     /// <summary>
-    /// Text used for debugging purposes
+    /// TrackedPoseDriver instance used for AR Camera Rotation and Position Tracking
     /// </summary>
-    public TextMeshProUGUI testText;
-
     [SerializeField]
     TrackedPoseDriver m_TrackedPoseDriver;
 
-    [SerializeField]
+    /// <summary>
+    /// Position to lock the camera to during view switch
+    /// </summary>
     Vector3 m_CamLockPosition;
 
-    [SerializeField]
+    /// <summary>
+    /// Rotation to lock the camera to during view switch
+    /// </summary>
     Vector3 m_CamLockRotation;
     #endregion
 
@@ -59,7 +65,7 @@ public class ViewManager : MonoBehaviour
         GameObject[] activeAndInactive = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject go in activeAndInactive)
         {
-            if (go.tag == "ARObject")
+            if (go.CompareTag("ARObject"))
             {
                 go.transform.localScale = Vector3.zero;
             }
@@ -67,6 +73,7 @@ public class ViewManager : MonoBehaviour
         //Does some camera and state updates
         m_CamLockPosition = m_MainCamera.transform.localPosition;
         m_CamLockRotation = m_MainCamera.transform.rotation.eulerAngles;
+        //Disables movement of AR camera in model view
         m_TrackedPoseDriver.enabled = false;
         m_MainCamera.enabled = false;
         m_ViewState = ViewState.Model;
@@ -81,7 +88,7 @@ public class ViewManager : MonoBehaviour
         GameObject[] activeAndInactive = FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         foreach (GameObject go in activeAndInactive)
         {
-            if (go.tag == "ARObject")
+            if (go.CompareTag("ARObject"))
             {
                 if (go.transform.rotation.eulerAngles.x == -90)
                 {
@@ -91,11 +98,11 @@ public class ViewManager : MonoBehaviour
             }
         }
         //Does some camera and state updates
+        //Enables movement of AR Camera in AR view
         m_TrackedPoseDriver.enabled = true;
         m_MainCamera.enabled = true;
         m_ViewState = ViewState.AR;
-        m_MainCamera.transform.position = m_CamLockPosition;
-        m_MainCamera.transform.rotation = Quaternion.Euler(m_CamLockRotation);
+        m_MainCamera.transform.SetPositionAndRotation(m_CamLockPosition, Quaternion.Euler(m_CamLockRotation));
     }
     #endregion
     #endregion

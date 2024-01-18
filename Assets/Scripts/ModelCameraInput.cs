@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Utilities.Tweenables.Primitives;
 
 public class ModelCameraInput : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class ModelCameraInput : MonoBehaviour
     private Camera cam;
 
     private float cameraSpeed = 4f;
-
 
     public float camDistanceFromModel;
 
@@ -27,10 +24,6 @@ public class ModelCameraInput : MonoBehaviour
     private ModelViewManager m_ModelViewManager;
 
     private Vector3 previousPosition;
-
-    public float zoomOutMin = 50;
-
-    public float zoomOutMax = 500;
 
     private TouchZoom touchZoom;
 
@@ -78,6 +71,9 @@ public class ModelCameraInput : MonoBehaviour
                     Vector3 direction = previousPosition - cam.ScreenToViewportPoint(Input.mousePosition);
 
                     cam.transform.position = target.position;
+                    m_ModelViewManager.m_CamZoomInnerBound.position = target.position;
+                    m_ModelViewManager.m_CamZoomOuterBound.position = target.position;
+
                     float xrot = cam.transform.eulerAngles.x;
                     
                     if (xrot < 0 || xrot > 180)
@@ -86,6 +82,8 @@ public class ModelCameraInput : MonoBehaviour
                     }
 
                     cam.transform.rotation = Quaternion.Euler(xrot, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+                    m_ModelViewManager.m_CamZoomOuterBound.rotation = Quaternion.Euler(xrot, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
+                    m_ModelViewManager.m_CamZoomInnerBound.rotation = Quaternion.Euler(xrot, cam.transform.eulerAngles.y, cam.transform.eulerAngles.z);
 
                     cam.transform.Rotate(new Vector3(1, 0, 0), direction.y * 180);
                     cam.transform.Rotate(new Vector3(0, 1, 0), -direction.x * 180);
@@ -94,11 +92,16 @@ public class ModelCameraInput : MonoBehaviour
                     m_ModelViewManager.m_CamZoomInnerBound.Rotate(new Vector3(1, 0, 0), direction.y * 180);
                     m_ModelViewManager.m_CamZoomInnerBound.Rotate(new Vector3(0, 1, 0), -direction.x * 180);
                     m_ModelViewManager.m_CamZoomInnerBound.Translate(new Vector3(0, 0, -m_InnerBoundDistanceFromModel));
+
+
                     m_ModelViewManager.m_CamZoomOuterBound.Rotate(new Vector3(1, 0, 0), direction.y * 180);
                     m_ModelViewManager.m_CamZoomOuterBound.Rotate(new Vector3(0, 1, 0), -direction.x * 180);
                     m_ModelViewManager.m_CamZoomOuterBound.Translate(new Vector3(0, 0, -m_OuterBoundDistanceFromModel));
 
                     
+                    
+
+
                     previousPosition = cam.ScreenToViewportPoint(Input.mousePosition);
                 }
 
@@ -132,17 +135,18 @@ public class ModelCameraInput : MonoBehaviour
 
             //Detection
             //Zoom out
-            if (distance > previousDistance && Vector2.Dot(primaryDelta, secondaryDelta) < -.9f)
+            if (distance > previousDistance/* && Vector2.Dot(primaryDelta, secondaryDelta) < -.8f*/)
             {
                 cam.transform.position = Vector3.Slerp(cam.transform.position, m_ModelViewManager.m_CamZoomInnerBound.position, Time.deltaTime * cameraSpeed);
             }
             //Zoom in
-            else if (distance < previousDistance && Vector2.Dot(primaryDelta, secondaryDelta) > .9f)
+
+            else if (distance < previousDistance /*&& Vector2.Dot(primaryDelta, secondaryDelta) > .8f*/)
             {
-                cam.transform.position = Vector3.Slerp(cam.transform.position, m_ModelViewManager.m_CamZoomOuterBound.position, Time.deltaTime * -cameraSpeed);
+                cam.transform.position = Vector3.Slerp(cam.transform.position, m_ModelViewManager.m_CamZoomOuterBound.position, Time.deltaTime * cameraSpeed);
             }
             previousDistance = distance;
-            camDistanceFromModel = Mathf.Abs(cam.transform.position.z - target.transform.position.z);
+            camDistanceFromModel = Vector3.Distance(cam.transform.position, target.transform.position); ;
             yield return null;
         }
     }

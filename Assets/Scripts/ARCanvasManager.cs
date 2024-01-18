@@ -8,14 +8,32 @@ using UnityEngine.UI;
 public class ARCanvasManager : MonoBehaviour
 {
     #region Class Variables
+    [Header("Canvas Elements")]
     [SerializeField]
     [Tooltip("GameObject that contains the Model View Button")]
-    GameObject viewButton;
+    GameObject m_ViewButton;
 
     [SerializeField]
     [Tooltip("GameObject that contains the AR View Button")]
-    GameObject arButton;
+    GameObject m_ARButton;
 
+    [SerializeField]
+    [Tooltip("Test text for debugging")]
+    TextMeshProUGUI m_TestText;
+
+    /// <summary>
+    /// Image used for a fade in effect upon app start
+    /// </summary>
+    [SerializeField]
+    Image m_FadeImage;
+
+    /// <summary>
+    /// Alpha variable used for fade effect
+    /// </summary>
+    float alpha = 1;
+
+    #region Script References
+    [Header("Script References")]
     [SerializeField]
     [Tooltip("Reference to the ViewManager Class")]
     ViewManager m_ViewManager;
@@ -24,39 +42,31 @@ public class ARCanvasManager : MonoBehaviour
     [Tooltip("Reference to the ModelViewManager Class")]
     ModelViewManager m_ModelViewManager;
 
-    [SerializeField]
-    [Tooltip("Test text for debugging")]
-    TextMeshProUGUI testText;
-
-    [SerializeField]
-    Image BlackImage;
-
-    float alpha = 1;
+    #endregion
     #endregion
 
     #region Methods
-
     #region Unity Methods
     private void Awake()
     {
-        BlackImage.color = new Color(0, 0, 0, alpha);
+        //Sets Color to be black with 100% alpha
+        m_FadeImage.color = new Color(0, 0, 0, alpha);
     }
     private void Update()
     {
-        if (BlackImage)
+        //Handles image fade in
+        if (m_FadeImage)
         {
             if (Time.time > 1)
             {
-                BlackImage.color = new Color(0, 0, 0, alpha);
+                m_FadeImage.color = new Color(0, 0, 0, alpha);
                 alpha -= Time.deltaTime * 5;
             }
             if (alpha <= 0)
             {
-                BlackImage = null;
+                m_FadeImage = null;
             }
         }
-        
-
     }
     #endregion
     #region Custom Methods
@@ -66,8 +76,8 @@ public class ARCanvasManager : MonoBehaviour
     public void EnableViewerMode()
     {
         m_ViewManager.SwitchToModelView();
-        viewButton.SetActive(false);
-        arButton.SetActive(true);
+        m_ViewButton.SetActive(false);
+        m_ARButton.SetActive(true);
     }
 
     /// <summary>
@@ -77,8 +87,8 @@ public class ARCanvasManager : MonoBehaviour
     {
         m_ViewManager.SwitchToARView();
         m_ModelViewManager.ClearModel();
-        viewButton.SetActive(true);
-        arButton.SetActive(false);
+        m_ViewButton.SetActive(true);
+        m_ARButton.SetActive(false);
     }
     #endregion
     #endregion
