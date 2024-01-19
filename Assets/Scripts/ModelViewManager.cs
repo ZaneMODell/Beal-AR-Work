@@ -7,33 +7,91 @@ using UnityEngine;
 public class ModelViewManager : MonoBehaviour
 {
     #region Class Variables
+    #region Plant Instantiation Variables
+    /// <summary>
+    /// Transform to instantiate the plant prefab when switching to model viewer mode
+    /// </summary>
+    [Header("Plant Instantiation")]
     [SerializeField]
+    [Tooltip("Transform in which the plant prefab will be instantiated at")]
     Transform m_PlantInstantiationPoint;
 
+    /// <summary>
+    /// Plant prefab to instantiate when switching to model viewer mode
+    /// </summary>
+    [HideInInspector]
     public GameObject m_PlantPrefab;
 
-    GameObject m_InstantiatedPlantPrefab;
+    /// <summary>
+    /// Actual instantiated plant prefab, used for resizing and such
+    /// </summary>
+    private GameObject m_InstantiatedPlantPrefab;
 
-    bool m_ModelSet;
+    /// <summary>
+    /// Boolean stating whether or not the model has been set in the model view mode
+    /// </summary>
+    private bool m_ModelSet;
 
-    [SerializeField]
-    ViewManager m_ViewManager;
-
-    [SerializeField]
-    GameObject m_MainCamera;
-
-    [SerializeField]
-    GameObject m_ModelCamera;
-
+    /// <summary>
+    /// Height of the mesh of the model
+    /// </summary>
+    [HideInInspector]
     public float modelHeight;
 
+    /// <summary>
+    /// Width of the mesh of the model
+    /// </summary>
+    [HideInInspector]
     public float modelWidth;
+    #endregion
 
+    #region Camera and Zoom Variables
+    /// <summary>
+    /// Reference to the main camera object used for AR
+    /// </summary>
+    [Header("Camera and Zoom References")]
+    [SerializeField]
+    [Tooltip("Reference to the main camera, the one that handles AR")]
+    private GameObject m_MainCamera;
+
+    /// <summary>
+    /// Reference to the model camera object used for the model viewer
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Reference to the model camera, the one that handles the model view")]
+    private GameObject m_ModelCamera;
+
+    /// <summary>
+    /// Transform used to zoom in to the model, zoom interpolates camera to this inner zoom position
+    /// </summary>
+    [Tooltip("Reference to the transform representing the inner bound of the camera zoom")]
     public Transform m_CamZoomInnerBound;
 
+    /// <summary>
+    /// Transform used to zoom out away from the model, zoom interpolates camera to this outer zoom position
+    /// </summary>
+    [Tooltip("Reference to the transform representing the outer bound of the camera zoom")]
     public Transform m_CamZoomOuterBound;
 
-    [SerializeField] private ModelCameraInput m_ModelCameraInput;
+    #endregion
+
+    #region Script References
+    /// <summary>
+    /// Reference to the ViewManager class
+    /// </summary>
+    [Header("Script References")]
+    [SerializeField]
+    [Tooltip("Reference to the ViewManager instance")]
+    ViewManager m_ViewManager;
+
+    /// <summary>
+    /// Reference to the model camera input class
+    /// </summary>
+    [SerializeField]
+    [Tooltip("Reference to the ModelCameraInput instance")]
+    private ModelCameraInput m_ModelCameraInput;
+
+    #endregion
     #endregion
 
     #region Methods
@@ -66,7 +124,7 @@ public class ModelViewManager : MonoBehaviour
             m_CamZoomOuterBound.position = m_InstantiatedPlantPrefab.transform.position - new Vector3(0, 0, modelHeight * 3000);
 
             //Calculate the distances from the prefab for rotation purposes
-            m_ModelCameraInput.camDistanceFromModel = Mathf.Abs(m_ModelCamera.transform.position.z - m_InstantiatedPlantPrefab.transform.position.z);
+            m_ModelCameraInput.m_CamDistanceFromModel = Mathf.Abs(m_ModelCamera.transform.position.z - m_InstantiatedPlantPrefab.transform.position.z);
             m_ModelCameraInput.m_InnerBoundDistanceFromModel = Mathf.Abs(m_CamZoomInnerBound.position.z - m_InstantiatedPlantPrefab.transform.position.z);
             m_ModelCameraInput.m_OuterBoundDistanceFromModel = Mathf.Abs(m_CamZoomOuterBound.position.z - m_InstantiatedPlantPrefab.transform.position.z);
 

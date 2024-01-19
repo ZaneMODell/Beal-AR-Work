@@ -8,15 +8,24 @@ using UnityEngine.UI;
 public class ARCanvasManager : MonoBehaviour
 {
     #region Class Variables
+    /// <summary>
+    /// Reference to the view button on the AR Canvas
+    /// </summary>
     [Header("Canvas Elements")]
     [SerializeField]
     [Tooltip("GameObject that contains the Model View Button")]
     GameObject m_ViewButton;
 
+    /// <summary>
+    /// Reference to the AR button on the AR Canvas
+    /// </summary>
     [SerializeField]
     [Tooltip("GameObject that contains the AR View Button")]
     GameObject m_ARButton;
 
+    /// <summary>
+    /// Reference to the test text on the AR Canvas
+    /// </summary>
     [SerializeField]
     [Tooltip("Test text for debugging")]
     TextMeshProUGUI m_TestText;
@@ -25,33 +34,46 @@ public class ARCanvasManager : MonoBehaviour
     /// Image used for a fade in effect upon app start
     /// </summary>
     [SerializeField]
+    [Tooltip("UI image used for fade in on app start")]
     Image m_FadeImage;
 
     /// <summary>
     /// Alpha variable used for fade effect
     /// </summary>
-    float alpha = 1;
+    private float alpha = 1;
 
     #region Script References
+    /// <summary>
+    /// Reference to the ViewManager instance
+    /// </summary>
     [Header("Script References")]
     [SerializeField]
     [Tooltip("Reference to the ViewManager Class")]
-    ViewManager m_ViewManager;
+    private ViewManager m_ViewManager;
 
+    /// <summary>
+    /// Reference to the ModelViewManager instance
+    /// </summary>
     [SerializeField]
     [Tooltip("Reference to the ModelViewManager Class")]
-    ModelViewManager m_ModelViewManager;
+    private ModelViewManager m_ModelViewManager;
 
     #endregion
     #endregion
 
     #region Methods
     #region Unity Methods
+    /// <summary>
+    /// Unity method called on scene load
+    /// </summary>
     private void Awake()
     {
         //Sets Color to be black with 100% alpha
         m_FadeImage.color = new Color(0, 0, 0, alpha);
     }
+    /// <summary>
+    /// Method called once every frame
+    /// </summary>
     private void Update()
     {
         //Handles image fade in

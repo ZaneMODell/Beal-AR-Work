@@ -226,11 +226,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86f94b3971a98b4396ec6158e716b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 1395935954}
-  camDistanceFromModel: 0
+  m_ModelCam: {fileID: 1395935954}
+  m_CameraSpeed: 4
+  m_CamDistanceFromModel: 0
   m_InnerBoundDistanceFromModel: 0
   m_OuterBoundDistanceFromModel: 0
-  target: {fileID: 231773645}
+  m_RotateTransform: {fileID: 231773645}
   m_ViewManager: {fileID: 1684085969}
   m_ModelViewManager: {fileID: 1584344600739607791}
 --- !u!1 &98523114 stripped
@@ -244,6 +245,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7894717702835170020, guid: 66405fbdf17df344a8cbbbc0c4f3d2f3,
     type: 3}
   m_PrefabInstance: {fileID: 1584344600739607790}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &466912368 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3666627224390372868, guid: 8818244936ece2f4b96030b6c516354d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7646727765513134435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &599543188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8767744058645196283, guid: 8818244936ece2f4b96030b6c516354d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7646727765513134435}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -386,7 +399,7 @@ GameObject:
   - component: {fileID: 915713223}
   - component: {fileID: 915713222}
   m_Layer: 0
-  m_Name: Main Camera yeahhh
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -796,6 +809,18 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1395935952}
   m_Enabled: 1
+--- !u!114 &1664139557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2093696213636369199, guid: 8818244936ece2f4b96030b6c516354d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7646727765513134435}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1682040805
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,10 +883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ViewState: 0
   m_MainCamera: {fileID: 915713226}
-  testText: {fileID: 1828601337}
   m_TrackedPoseDriver: {fileID: 915713222}
-  m_CamLockPosition: {x: 0, y: 0, z: 0}
-  m_CamLockRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &1684085970
 Transform:
   m_ObjectHideFlags: 0
@@ -1333,6 +1355,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: ARCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5219273437829951706, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
+      propertyPath: m_ARButton
+      value: 
+      objectReference: {fileID: 466912368}
+    - target: {fileID: 5219273437829951706, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
+      propertyPath: m_TestText
+      value: 
+      objectReference: {fileID: 1828601337}
+    - target: {fileID: 5219273437829951706, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
+      propertyPath: m_FadeImage
+      value: 
+      objectReference: {fileID: 1664139557}
+    - target: {fileID: 5219273437829951706, guid: 8818244936ece2f4b96030b6c516354d,
+        type: 3}
+      propertyPath: m_ViewButton
+      value: 
+      objectReference: {fileID: 599543188}
     - target: {fileID: 5219273437829951706, guid: 8818244936ece2f4b96030b6c516354d,
         type: 3}
       propertyPath: m_ViewManager

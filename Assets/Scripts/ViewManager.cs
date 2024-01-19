@@ -19,6 +19,7 @@ public class ViewManager : MonoBehaviour
     /// <summary>
     /// Instance of the ViewState for the ViewManager
     /// </summary>
+    [HideInInspector]
     public ViewState m_ViewState;
     #endregion
 
@@ -27,27 +28,32 @@ public class ViewManager : MonoBehaviour
     /// Reference to the main camera
     /// </summary>
     [SerializeField]
-    Camera m_MainCamera;
+    [Tooltip("Reference to the main camera")]
+    private Camera m_MainCamera;
 
     /// <summary>
     /// TrackedPoseDriver instance used for AR Camera Rotation and Position Tracking
     /// </summary>
     [SerializeField]
-    TrackedPoseDriver m_TrackedPoseDriver;
+    [Tooltip("Reference to the TrackedPoseDriver AR component")]
+    private TrackedPoseDriver m_TrackedPoseDriver;
 
     /// <summary>
     /// Position to lock the camera to during view switch
     /// </summary>
-    Vector3 m_CamLockPosition;
+    private Vector3 m_CamLockPosition;
 
     /// <summary>
     /// Rotation to lock the camera to during view switch
     /// </summary>
-    Vector3 m_CamLockRotation;
+    private Vector3 m_CamLockRotation;
     #endregion
 
     #region Methods
     #region Unity Methods
+    /// <summary>
+    /// Method that is called when the scene loads
+    /// </summary>
     void Start()
     {
         //Initializes state to AR
@@ -70,9 +76,11 @@ public class ViewManager : MonoBehaviour
                 go.transform.localScale = Vector3.zero;
             }
         }
+
         //Does some camera and state updates
         m_CamLockPosition = m_MainCamera.transform.localPosition;
         m_CamLockRotation = m_MainCamera.transform.rotation.eulerAngles;
+
         //Disables movement of AR camera in model view
         m_TrackedPoseDriver.enabled = false;
         m_MainCamera.enabled = false;
@@ -97,6 +105,7 @@ public class ViewManager : MonoBehaviour
                 go.transform.localScale = Vector3.one;
             }
         }
+
         //Does some camera and state updates
         //Enables movement of AR Camera in AR view
         m_TrackedPoseDriver.enabled = true;

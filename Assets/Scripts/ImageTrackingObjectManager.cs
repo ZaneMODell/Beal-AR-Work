@@ -27,7 +27,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Reference Image Library")]
-    XRReferenceImageLibrary m_ImageLibrary;
+    private XRReferenceImageLibrary m_ImageLibrary;
 
     /// <summary>
     /// Get the <c>XRReferenceImageLibrary</c>
@@ -38,17 +38,17 @@ public class ImageTrackingObjectManager : MonoBehaviour
         set => m_ImageLibrary = value;
     }
 
-    int m_NumberOfTrackedImages;
+    private int m_NumberOfTrackedImages;
 
-    static Guid s_FirstImageGUID;
-    static Guid s_SecondImageGUID;
+    private static Guid s_FirstImageGUID;
+    private static Guid s_SecondImageGUID;
     #endregion
 
     #region Prefab References
     [Header("Prefab References")]
     [SerializeField]
     [Tooltip("Prefab for tracked 1 image")]
-    GameObject m_PlantPrefab;
+    private GameObject m_PlantPrefab;
 
     /// <summary>
     /// Get the one prefab
@@ -62,7 +62,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// Spawned plant prefab
     /// </summary>
-    GameObject m_SpawnedPlantPrefab;
+    private GameObject m_SpawnedPlantPrefab;
 
     /// <summary>
     /// get the spawned one prefab
@@ -75,7 +75,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
     [SerializeField]
     [Tooltip("Prefab for tracked 2 image")]
-    GameObject m_FrogPrefab;
+    private GameObject m_FrogPrefab;
 
     /// <summary>
     /// get the two prefab
@@ -89,7 +89,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     /// <summary>
     /// Spawned frog prefab
     /// </summary>
-    GameObject m_SpawnedFrogPrefab;
+    private GameObject m_SpawnedFrogPrefab;
 
     /// <summary>
     /// get the spawned two prefab
@@ -105,7 +105,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     [Header("AR Canvas")]
     [SerializeField]
     [Tooltip("GameObject that is the AR Canvas")]
-    GameObject m_ARCanvas;
+    private GameObject m_ARCanvas;
     #endregion
 
 
@@ -113,12 +113,12 @@ public class ImageTrackingObjectManager : MonoBehaviour
     [Header("Script References")]
     [SerializeField]
     [Tooltip("Reference to the View Manager")]
-    ViewManager m_ViewManager;
+    private ViewManager m_ViewManager;
 
 
     [SerializeField]
     [Tooltip("Reference to the Model View Manager")]
-    ModelViewManager m_ModelViewManager;
+    private ModelViewManager m_ModelViewManager;
     #endregion
     #endregion
 
