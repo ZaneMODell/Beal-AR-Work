@@ -24,6 +24,7 @@ public class ViewManager : MonoBehaviour
     #endregion
 
     #region Class Variables
+    [Header("View-Relevant References")]
     /// <summary>
     /// Reference to the main camera
     /// </summary>
@@ -47,6 +48,14 @@ public class ViewManager : MonoBehaviour
     /// Rotation to lock the camera to during view switch
     /// </summary>
     private Vector3 m_CamLockRotation;
+
+
+
+
+
+
+
+    public DialogueHolder dialogueHolder;
     #endregion
 
     #region Methods
@@ -85,6 +94,8 @@ public class ViewManager : MonoBehaviour
         m_TrackedPoseDriver.enabled = false;
         m_MainCamera.enabled = false;
         m_ViewState = ViewState.Model;
+
+        dialogueHolder.TriggerDialogue();
     }
 
     /// <summary>

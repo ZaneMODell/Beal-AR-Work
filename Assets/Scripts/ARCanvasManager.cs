@@ -24,6 +24,20 @@ public class ARCanvasManager : MonoBehaviour
     GameObject m_ARButton;
 
     /// <summary>
+    /// Reference to the conservation resources button on the AR Canvas
+    /// </summary>
+    [SerializeField]
+    [Tooltip("GameObject that contains the Conservation Resources Button")]
+    GameObject m_ResourceButton;
+
+    /// <summary>
+    /// Reference to the plant map button on the AR Canvas
+    /// </summary>
+    [SerializeField]
+    [Tooltip("GameObject that contains the plant map Button")]
+    GameObject m_MapButton;
+
+    /// <summary>
     /// Reference to the test text on the AR Canvas
     /// </summary>
     [SerializeField]
@@ -57,6 +71,8 @@ public class ARCanvasManager : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to the ModelViewManager Class")]
     private ModelViewManager m_ModelViewManager;
+
+    public ResourceManager resourceManager;
 
     #endregion
     #endregion
@@ -100,6 +116,8 @@ public class ARCanvasManager : MonoBehaviour
         m_ViewManager.SwitchToModelView();
         m_ViewButton.SetActive(false);
         m_ARButton.SetActive(true);
+        m_ResourceButton.SetActive(true);
+        m_MapButton.SetActive(true);
     }
 
     /// <summary>
@@ -111,6 +129,18 @@ public class ARCanvasManager : MonoBehaviour
         m_ModelViewManager.ClearModel();
         m_ViewButton.SetActive(true);
         m_ARButton.SetActive(false);
+        m_ResourceButton.SetActive(false);
+        m_MapButton.SetActive(false);
+    }
+
+    public void OpenURL(string url)
+    {
+        Application.OpenURL(url);
+    }
+
+    public void OpenMapURL()
+    {
+        OpenURL(resourceManager.currentMapLink);
     }
     #endregion
     #endregion

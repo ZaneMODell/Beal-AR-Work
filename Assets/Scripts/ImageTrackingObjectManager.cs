@@ -119,6 +119,11 @@ public class ImageTrackingObjectManager : MonoBehaviour
     [SerializeField]
     [Tooltip("Reference to the Model View Manager")]
     private ModelViewManager m_ModelViewManager;
+
+
+    public string plantName;
+
+    public ResourceManager resourceManager;
     #endregion
     #endregion
 
@@ -176,12 +181,16 @@ public class ImageTrackingObjectManager : MonoBehaviour
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
+                plantName = m_PlantPrefab.name;
             }
             else if (image.referenceImage.guid == s_SecondImageGUID)
             {
                 m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
+                plantName = m_FrogPrefab.name;
             }
         }
+
+        resourceManager.UpdateMapLink(plantName);
 
         // updated, set prefab position and rotation
         foreach (ARTrackedImage image in obj.updated)
