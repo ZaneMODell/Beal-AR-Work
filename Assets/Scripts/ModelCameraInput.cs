@@ -65,11 +65,11 @@ public class ModelCameraInput : MonoBehaviour
     #region Script References
     [Header("Script References")]
     [SerializeField]
-    [Tooltip("Reference to the ViewManager instance")]
+    [Tooltip("Reference to the ViewManager m_Instance")]
     private ViewManager m_ViewManager;
 
     [SerializeField]
-    [Tooltip("Reference to the ModelViewManager instance")]
+    [Tooltip("Reference to the ModelViewManager m_Instance")]
     private ModelViewManager m_ModelViewManager;
     #endregion
     #endregion

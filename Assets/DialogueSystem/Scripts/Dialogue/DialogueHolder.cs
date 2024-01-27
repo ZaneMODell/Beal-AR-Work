@@ -1,26 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that holds all of the dialogue objects for a certain dialogue/text interaction
+/// </summary>
 public class DialogueHolder : MonoBehaviour
 {
+    #region Class Variables
+    /// <summary>
+    /// List of dialogue objects that will be executed
+    /// </summary>
     [Header("Dialogue Settings")]
     [Tooltip("The dialogues to play back")]
-    public List<Dialogue> dialogueToPlayBack;
+    public List<Dialogue> m_DialogueToPlayBack;
 
+
+    /// <summary>
+    /// Boolean that determines if the game pauses when dialogue occurs
+    /// </summary>
     [Header("Play Settings")]
     [Tooltip("Whether or not to pause when it occurs")]
-    public bool pauseOnTrigger = true;
-    [Tooltip("Whether or not to play this dialogue when the script starts")]
-    public bool playOnStart = false;
+    public bool m_PauseOnTrigger = true;
 
+    /// <summary>
+    /// Boolean that determines whether or not this dialogue plays on scene start
+    /// </summary>
+    [Tooltip("Whether or not to play this dialogue when the script starts")]
+    public bool m_PlayOnStart = false;
+    #endregion
+
+    #region Methods
+    #region Unity Methods
+    /// <summary>
+    /// Unity method that is called on scene start
+    /// </summary>
     private void Start()
     {
-        if (playOnStart)
+        if (m_PlayOnStart)
         {
             TriggerDialogue();
         }
     }
+    #endregion
+
+    #region Custom Methods
 
     /// <summary>
     /// Triggers the dialogue and gets it playing
@@ -30,9 +53,12 @@ public class DialogueHolder : MonoBehaviour
         SetUpDialogue();
     }
 
+    /// <summary>
+    /// Method that cancels any dialogue from the dialogue manager
+    /// </summary>
     public void CancelDialogue()
     {
-        DialogueManager.instance.EndDialogue();
+        DialogueManager.m_Instance.EndDialogue();
     }
 
     /// <summary>
@@ -40,16 +66,13 @@ public class DialogueHolder : MonoBehaviour
     /// </summary>
     void SetUpDialogue()
     {
-        DialogueManager.instance.StartDialogue(dialogueToPlayBack);
+        DialogueManager.m_Instance.StartDialogue(m_DialogueToPlayBack);
 
-        if (pauseOnTrigger)
+        if (m_PauseOnTrigger)
         {
             Time.timeScale = 0;
         }
     }
-
-    private void OnDestroy()
-    {
-        dialogueToPlayBack = new List<Dialogue>();
-    }
+    #endregion
+    #endregion
 }

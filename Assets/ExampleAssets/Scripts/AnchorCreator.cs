@@ -65,8 +65,8 @@ public class AnchorCreator : MonoBehaviour
             var hitPlane = m_PlaneManager.GetPlane(hitTrackableId);
 
             // This attaches an anchor to the area on the plane corresponding to the raycast hit,
-            // and afterwards instantiates an instance of your chosen prefab at that point.
-            // This prefab instance is parented to the anchor to make sure the position of the prefab is consistent
+            // and afterwards instantiates an m_Instance of your chosen prefab at that point.
+            // This prefab m_Instance is parented to the anchor to make sure the position of the prefab is consistent
             // with the anchor, since an anchor attached to an ARPlane will be updated automatically by the ARAnchorManager as the ARPlane's exact position is refined.
             var anchor = m_AnchorManager.AttachAnchor(hitPlane, hitPose);
             Instantiate(m_AnchorPrefab, anchor.transform);

@@ -48,7 +48,7 @@ public class ARCanvasManager : MonoBehaviour
     /// Image used for a fade in effect upon app start
     /// </summary>
     [SerializeField]
-    [Tooltip("UI image used for fade in on app start")]
+    [Tooltip("UI m_SpriteImage used for fade in on app start")]
     Image m_FadeImage;
 
     /// <summary>
@@ -58,7 +58,7 @@ public class ARCanvasManager : MonoBehaviour
 
     #region Script References
     /// <summary>
-    /// Reference to the ViewManager instance
+    /// Reference to the ViewManager m_Instance
     /// </summary>
     [Header("Script References")]
     [SerializeField]
@@ -66,7 +66,7 @@ public class ARCanvasManager : MonoBehaviour
     private ViewManager m_ViewManager;
 
     /// <summary>
-    /// Reference to the ModelViewManager instance
+    /// Reference to the ModelViewManager m_Instance
     /// </summary>
     [SerializeField]
     [Tooltip("Reference to the ModelViewManager Class")]
@@ -92,7 +92,7 @@ public class ARCanvasManager : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        //Handles image fade in
+        //Handles m_SpriteImage fade in
         if (m_FadeImage)
         {
             if (Time.time > 1)

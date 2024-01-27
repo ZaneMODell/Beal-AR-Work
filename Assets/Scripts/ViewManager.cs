@@ -33,7 +33,7 @@ public class ViewManager : MonoBehaviour
     private Camera m_MainCamera;
 
     /// <summary>
-    /// TrackedPoseDriver instance used for AR Camera Rotation and Position Tracking
+    /// TrackedPoseDriver m_Instance used for AR Camera Rotation and Position Tracking
     /// </summary>
     [SerializeField]
     [Tooltip("Reference to the TrackedPoseDriver AR component")]
@@ -50,12 +50,14 @@ public class ViewManager : MonoBehaviour
     private Vector3 m_CamLockRotation;
 
 
-
-
-
-
-
-    public DialogueHolder dialogueHolder;
+    #region Script References
+    /// <summary>
+    /// Dialogue Holder Reference
+    /// </summary>
+    [Tooltip("Reference to the DialogueHolder")]
+    [SerializeField]
+    private DialogueHolder dialogueHolder;
+    #endregion
     #endregion
 
     #region Methods

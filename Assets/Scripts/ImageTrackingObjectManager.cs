@@ -1,4 +1,5 @@
 using System;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -47,7 +48,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     #region Prefab References
     [Header("Prefab References")]
     [SerializeField]
-    [Tooltip("Prefab for tracked 1 image")]
+    [Tooltip("Prefab for tracked 1 m_SpriteImage")]
     private GameObject m_PlantPrefab;
 
     /// <summary>
@@ -74,7 +75,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("Prefab for tracked 2 image")]
+    [Tooltip("Prefab for tracked 2 m_SpriteImage")]
     private GameObject m_FrogPrefab;
 
     /// <summary>
@@ -99,9 +100,19 @@ public class ImageTrackingObjectManager : MonoBehaviour
         get => m_SpawnedFrogPrefab;
         set => m_SpawnedFrogPrefab = value;
     }
+
+    /// <summary>
+    /// Name of the plant that is active
+    /// </summary>
+    [ReadOnly]
+    [Tooltip("Active plant that helps update text")]
+    public string m_ActivePlant;
     #endregion
 
     #region AR Canvas
+    /// <summary>
+    /// AR Canvas Object
+    /// </summary>
     [Header("AR Canvas")]
     [SerializeField]
     [Tooltip("GameObject that is the AR Canvas")]
@@ -110,20 +121,26 @@ public class ImageTrackingObjectManager : MonoBehaviour
 
 
     #region Script References
+    /// <summary>
+    /// ViewManager reference
+    /// </summary>
     [Header("Script References")]
     [SerializeField]
     [Tooltip("Reference to the View Manager")]
     private ViewManager m_ViewManager;
 
-
+    /// <summary>
+    /// ModelViewManager reference
+    /// </summary>
     [SerializeField]
     [Tooltip("Reference to the Model View Manager")]
     private ModelViewManager m_ModelViewManager;
 
-
-    public string plantName;
-
-    public ResourceManager resourceManager;
+    /// <summary>
+    /// ResourceManager reference
+    /// </summary>
+    [SerializeField]
+    private ResourceManager resourceManager;
     #endregion
     #endregion
 
@@ -181,22 +198,22 @@ public class ImageTrackingObjectManager : MonoBehaviour
             if (image.referenceImage.guid == s_FirstImageGUID)
             {
                 m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
-                plantName = m_PlantPrefab.name;
+                m_ActivePlant = m_PlantPrefab.name;
             }
             else if (image.referenceImage.guid == s_SecondImageGUID)
             {
                 m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
-                plantName = m_FrogPrefab.name;
+                m_ActivePlant = m_FrogPrefab.name;
             }
         }
 
-        resourceManager.UpdateMapLink(plantName);
-        resourceManager.UpdatePlantDialogue(plantName);
+        resourceManager.UpdateMapLink(m_ActivePlant);
+        resourceManager.UpdatePlantDialogue(m_ActivePlant);
 
         // updated, set prefab position and rotation
         foreach (ARTrackedImage image in obj.updated)
         {
-            // image is tracking or tracking with limited state, show visuals and update it's position and rotation
+            // m_SpriteImage is tracking or tracking with limited state, show visuals and update it's position and rotation
             if (image.trackingState == TrackingState.Tracking)
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
@@ -213,7 +230,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
                     m_SpawnedFrogPrefab.SetActive(true);
                 }
             }
-            // image is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
+            // m_SpriteImage is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
             else
             {
                 if (image.referenceImage.guid == s_FirstImageGUID)
@@ -229,7 +246,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
             }
         }
 
-        // removed, destroy spawned instance
+        // removed, destroy spawned m_Instance
         foreach (ARTrackedImage image in obj.removed)
         {
             if (image.referenceImage.guid == s_FirstImageGUID)
