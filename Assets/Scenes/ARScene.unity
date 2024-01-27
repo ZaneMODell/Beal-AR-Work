@@ -293,27 +293,7 @@ MonoBehaviour:
   dialogueToPlayBack:
   - speaker: {fileID: 11400000, guid: e328f003a277b234a92a7418691e5884, type: 2}
     dialogueSentences:
-    - sentence: This is a test
-      leaveAtEndOfSentence: 0
-      dialgoueSpritePosition: 0
-      eventsWhenStartingDialogueString:
-        m_PersistentCalls:
-          m_Calls: []
-      eventsWhenFinishingDialogueString:
-        m_PersistentCalls:
-          m_Calls: []
-    - sentence: 'Another line by the same speaker. '
-      leaveAtEndOfSentence: 0
-      dialgoueSpritePosition: 0
-      eventsWhenStartingDialogueString:
-        m_PersistentCalls:
-          m_Calls: []
-      eventsWhenFinishingDialogueString:
-        m_PersistentCalls:
-          m_Calls: []
-  - speaker: {fileID: 11400000, guid: e328f003a277b234a92a7418691e5884, type: 2}
-    dialogueSentences:
-    - sentence: This is a line by a different speaker
+    - sentence: DO NOT MODIFY THIS DIALOUGE IN INSPECTOR
       leaveAtEndOfSentence: 0
       dialgoueSpritePosition: 0
       eventsWhenStartingDialogueString:
@@ -1406,6 +1386,13 @@ MonoBehaviour:
     - Key: FrogARModel
       Value: https://www.youtube.com/watch?v=GVPLifu3trw
   currentMapLink: 
+  plantTextPairs:
+    _serializedList:
+    - Key: PlantARModel
+      Value:
+      - This is a test piece of dialogue for the plantARmodel.
+      - This is a follow up piece of dialogue.
+  dialogueHolder: {fileID: 389736858}
 --- !u!4 &2042473845
 Transform:
   m_ObjectHideFlags: 0

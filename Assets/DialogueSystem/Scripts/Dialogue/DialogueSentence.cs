@@ -21,6 +21,7 @@ public class DialogueSentence
 
     public void DoWhenStartingDialogueString()
     {
+        if (eventsWhenStartingDialogueString != null)
         eventsWhenStartingDialogueString.Invoke();
     }
 
@@ -37,6 +38,7 @@ public class DialogueSentence
                 DialogueManager.instance.rightSprite.ResetSprite();
             }
         }
+        if (eventsWhenFinishingDialogueString != null)
         eventsWhenFinishingDialogueString.Invoke();
     }
 }

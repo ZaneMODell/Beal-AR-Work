@@ -42,4 +42,9 @@ public class DialogueHolder : MonoBehaviour
             Time.timeScale = 0;
         }
     }
+
+    private void OnDestroy()
+    {
+        dialogueToPlayBack = new List<Dialogue>();
+    }
 }

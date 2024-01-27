@@ -191,6 +191,7 @@ public class ImageTrackingObjectManager : MonoBehaviour
         }
 
         resourceManager.UpdateMapLink(plantName);
+        resourceManager.UpdatePlantDialogue(plantName);
 
         // updated, set prefab position and rotation
         foreach (ARTrackedImage image in obj.updated)
