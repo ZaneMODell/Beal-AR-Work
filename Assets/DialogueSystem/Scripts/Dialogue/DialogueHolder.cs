@@ -30,6 +30,11 @@ public class DialogueHolder : MonoBehaviour
         SetUpDialogue();
     }
 
+    public void CancelDialogue()
+    {
+        DialogueManager.instance.EndDialogue();
+    }
+
     /// <summary>
     /// Sets up the dialogue and starts it, will pause the game if pause on trigger is set to true.
     /// </summary>

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
@@ -8,7 +6,7 @@ using UnityEngine.UI;
 /// </summary>
 public class DialogueSprite : MonoBehaviour
 {
-    [Tooltip("The animator which controls animations to move the sprite on adn off the screen")]
+    [Tooltip("The animator which controls animations to move the sprite on and off the screen")]
     public Animator animator;
     [Tooltip("The image of the dialogue sprite that gets changed to match the spearker's sprite")]
     public Image image;

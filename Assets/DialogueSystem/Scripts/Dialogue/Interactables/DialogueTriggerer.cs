@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
 /// This class allows dialogue to be called when the player moves into a trigger in the world
@@ -16,9 +14,13 @@ public class DialogueTriggerer : MonoBehaviour
     [Tooltip("Whether or not to set this gameobject to inactive after playing the dialogue")]
     public bool setToInactiveAfterPlay = false;
 
+    /// <summary>
+    /// Unity Method that is called when another collider collides with this object's trigger
+    /// </summary>
+    /// <param name="other">The other collider that interacts with this trigger</param>
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             if (playOnce == true && alreadyPlayed == true)
             {

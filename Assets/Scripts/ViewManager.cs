@@ -117,6 +117,8 @@ public class ViewManager : MonoBehaviour
             }
         }
 
+        dialogueHolder.CancelDialogue();
+
         //Does some camera and state updates
         //Enables movement of AR Camera in AR view
         m_TrackedPoseDriver.enabled = true;

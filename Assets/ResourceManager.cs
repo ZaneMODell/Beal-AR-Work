@@ -5,13 +5,13 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
 
-    [SerializedDictionary("Plant", "Map Link")]
+    [SerializedDictionary("Plant Prefab Name", "Map Link")]
     public SerializedDictionary<string, string> mapLinks;
 
     public string currentMapLink;
 
 
-    [SerializedDictionary("Plant", "Informative Text")]
+    [SerializedDictionary("Plant Prefab Name", "Informative Text")]
     public SerializedDictionary<string, List<string>> plantTextPairs;
 
 

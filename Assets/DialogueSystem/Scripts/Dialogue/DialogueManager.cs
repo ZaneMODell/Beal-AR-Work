@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue Box Settings")]
-    public Text nameText;
-    public Text sentenceDisplay;
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI sentenceDisplay;
     private Queue<DialogueSentence> currentDialogueStrings;
 
     public static DialogueManager instance;
@@ -24,6 +25,8 @@ public class DialogueManager : MonoBehaviour
 
     // left side is 0 right side is 1
     public int activeSpeaker = 0;
+
+    public float dialougeSpeed = 20f;
 
     void Awake()
     {
@@ -158,7 +161,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentence.ToCharArray())
         {
             sentenceDisplay.text += letter;
-            yield return null;
+            yield return new WaitForSeconds(1/dialougeSpeed);
         }
     }
 
@@ -215,7 +218,10 @@ public class DialogueManager : MonoBehaviour
             Time.timeScale = 1;
         }
         dialogueRunning = false;
-        currentDialogueString.DoWhenEndingDialogueString();
+        if (currentDialogueString != null)
+        {
+            currentDialogueString.DoWhenEndingDialogueString();
+        }
         currentDialogueString = null;
     }
 
