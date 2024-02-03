@@ -5,11 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-
-/// <summary>
-/// Class that manages all tracked images
-/// </summary>
-public class ImageTrackingObjectManager : MonoBehaviour
+public class ImageTrackingObjectManagerWeb : MonoBehaviour
 {
     #region Class Variables
     #region Image Related Information
@@ -300,5 +296,4 @@ public class ImageTrackingObjectManager : MonoBehaviour
     }
     #endregion
     #endregion
-
 }
