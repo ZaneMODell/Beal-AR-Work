@@ -95,6 +95,7 @@ public class ViewManager : MonoBehaviour
         //Disables movement of AR camera in model view
         m_TrackedPoseDriver.enabled = false;
         m_MainCamera.enabled = false;
+        m_MainCamera.gameObject.SetActive(false);
         m_ViewState = ViewState.Model;
 
         dialogueHolder.TriggerDialogue();
@@ -125,6 +126,7 @@ public class ViewManager : MonoBehaviour
         //Enables movement of AR Camera in AR view
         m_TrackedPoseDriver.enabled = true;
         m_MainCamera.enabled = true;
+        m_MainCamera.gameObject.SetActive(true);
         m_ViewState = ViewState.AR;
         m_MainCamera.transform.SetPositionAndRotation(m_CamLockPosition, Quaternion.Euler(m_CamLockRotation));
     }

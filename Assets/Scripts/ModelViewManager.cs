@@ -101,7 +101,7 @@ public class ModelViewManager : MonoBehaviour
     /// <param name="plantPrefab"></param>
     public void SetModel(GameObject plantPrefab)
     {
-        if (!m_ModelSet && m_ViewManager.m_ViewState == ViewManager.ViewState.Model)
+        if (!m_ModelSet /*&& m_ViewManager.m_ViewState == ViewManager.ViewState.Model*/)
         {
             //Get the prefab to set in the model view and instantiate it
             m_PlantPrefab = plantPrefab;

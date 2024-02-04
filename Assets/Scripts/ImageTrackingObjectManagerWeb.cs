@@ -4,37 +4,38 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Zappar;
 
 public class ImageTrackingObjectManagerWeb : MonoBehaviour
 {
     #region Class Variables
     #region Image Related Information
     [Header("Image Related Info")]
-    [SerializeField]
-    [Tooltip("Image manager on the AR Session Origin")]
-    ARTrackedImageManager m_ImageManager;
+    //[SerializeField]
+    //[Tooltip("Image manager on the AR Session Origin")]
+    //ARTrackedImageManager m_ImageManager;
 
-    /// <summary>
-    /// Get the <c>ARTrackedImageManager</c>
-    /// </summary>
-    public ARTrackedImageManager ImageManager
-    {
-        get => m_ImageManager;
-        set => m_ImageManager = value;
-    }
+    ///// <summary>
+    ///// Get the <c>ARTrackedImageManager</c>
+    ///// </summary>
+    //public ARTrackedImageManager ImageManager
+    //{
+    //    get => m_ImageManager;
+    //    set => m_ImageManager = value;
+    //}
 
-    [SerializeField]
-    [Tooltip("Reference Image Library")]
-    private XRReferenceImageLibrary m_ImageLibrary;
+    //[SerializeField]
+    //[Tooltip("Reference Image Library")]
+    //private XRReferenceImageLibrary m_ImageLibrary;
 
-    /// <summary>
-    /// Get the <c>XRReferenceImageLibrary</c>
-    /// </summary>
-    public XRReferenceImageLibrary ImageLibrary
-    {
-        get => m_ImageLibrary;
-        set => m_ImageLibrary = value;
-    }
+    ///// <summary>
+    ///// Get the <c>XRReferenceImageLibrary</c>
+    ///// </summary>
+    //public XRReferenceImageLibrary ImageLibrary
+    //{
+    //    get => m_ImageLibrary;
+    //    set => m_ImageLibrary = value;
+    //}
 
     private int m_NumberOfTrackedImages;
 
@@ -146,40 +147,56 @@ public class ImageTrackingObjectManagerWeb : MonoBehaviour
     #region Methods
     #region Unity Methods
     /// <summary>
-    /// Unity method that is called when this object is active and enabled
-    /// </summary>
-    void OnEnable()
-    {
-        if (s_FirstImageGUID != m_ImageLibrary[0].guid || s_SecondImageGUID != m_ImageLibrary[1].guid)
-        {
-            s_FirstImageGUID = m_ImageLibrary[0].guid;
-            s_SecondImageGUID = m_ImageLibrary[1].guid;
-        };
-        m_ImageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
-    }
+    ///// Unity method that is called when this object is active and enabled
+    ///// </summary>
+    //void OnEnable()
+    //{
+    //    if (s_FirstImageGUID != m_ImageLibrary[0].guid || s_SecondImageGUID != m_ImageLibrary[1].guid)
+    //    {
+    //        s_FirstImageGUID = m_ImageLibrary[0].guid;
+    //        s_SecondImageGUID = m_ImageLibrary[1].guid;
+    //    };
+    //    m_ImageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
+    //}
 
-    /// <summary>
-    /// Unity method that is called when this object is disabled
-    /// </summary>
-    void OnDisable()
+    ///// <summary>
+    ///// Unity method that is called when this object is disabled
+    ///// </summary>
+    //void OnDisable()
+    //{
+    //    m_ImageManager.trackedImagesChanged -= ImageManagerOnTrackedImagesChanged;
+    //}
+
+    //void OnEnable()
+    //{
+    //    ZapparCamera.
+    //}
+
+    //void OnDisable()
+    //{
+    //    ZapparCamera.OnImageAnchor -= HandleImageAnchor;
+    //}
+
+    private void Start()
     {
-        m_ImageManager.trackedImagesChanged -= ImageManagerOnTrackedImagesChanged;
+        DisableARCanvas();
     }
 
     /// <summary>
     /// Unity method that is called once each frame (Set in Project Settings at 60 FPS)
     /// </summary>
-    private void FixedUpdate()
-    {
-        if (NumberOfTrackedImages() > 0 || m_ViewManager.m_ViewState == ViewManager.ViewState.Model)
-        {
-            EnableARCanvas();
-        }
-        else
-        {
-            DisableARCanvas();
-        }
-    }
+    //private void FixedUpdate()
+    //{
+        
+    //    if (NumberOfTrackedImages() > 0 || m_ViewManager.m_ViewState == ViewManager.ViewState.Model)
+    //    {
+    //        EnableARCanvas();
+    //    }
+    //    else
+    //    {
+    //        DisableARCanvas();
+    //    }
+    //}
 
     #endregion
 
@@ -191,80 +208,80 @@ public class ImageTrackingObjectManagerWeb : MonoBehaviour
     /// <param name="obj">Object representing the changed state of the AR Tracked Images</param>
     void ImageManagerOnTrackedImagesChanged(ARTrackedImagesChangedEventArgs obj)
     {
-        bool foundimage = false;
-        // added, spawn prefab
-        foreach (ARTrackedImage image in obj.added)
-        {
-            if (image.referenceImage.guid == s_FirstImageGUID)
-            {
-                m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
-                m_ActivePlant = m_PlantPrefab.name;
-            }
-            else if (image.referenceImage.guid == s_SecondImageGUID)
-            {
-                m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
-                m_ActivePlant = m_FrogPrefab.name;
-            }
-        }
+        //bool foundimage = false;
+        //// added, spawn prefab
+        //foreach (ARTrackedImage image in obj.added)
+        //{
+        //    if (image.referenceImage.guid == s_FirstImageGUID)
+        //    {
+        //        m_SpawnedPlantPrefab = Instantiate(m_PlantPrefab, image.transform.position, image.transform.rotation);
+        //        m_ActivePlant = m_PlantPrefab.name;
+        //    }
+        //    else if (image.referenceImage.guid == s_SecondImageGUID)
+        //    {
+        //        m_SpawnedFrogPrefab = Instantiate(m_FrogPrefab, image.transform.position, image.transform.rotation);
+        //        m_ActivePlant = m_FrogPrefab.name;
+        //    }
+        //}
 
-        resourceManager.UpdateMapLink(m_ActivePlant);
-        resourceManager.UpdatePlantDialogue(m_ActivePlant);
+        //resourceManager.UpdateMapLink(plant.name);
+        //resourceManager.UpdatePlantDialogue(plant.name);
 
         // updated, set prefab position and rotation
-        foreach (ARTrackedImage image in obj.updated)
-        {
-            // m_SpriteImage is tracking or tracking with limited state, show visuals and update it's position and rotation
-            if (image.trackingState == TrackingState.Tracking)
-            {
-                if (image.referenceImage.guid == s_FirstImageGUID)
-                {
-                    m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
-                    m_ModelViewManager.SetModel(m_PlantPrefab);
-                    foundimage = true;
-                    testText.text = "Tracking prefab: " + m_PlantPrefab.name;
-                    m_SpawnedPlantPrefab.SetActive(true);
-                }
-                else if (image.referenceImage.guid == s_SecondImageGUID)
-                {
-                    m_SpawnedFrogPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
-                    m_ModelViewManager.SetModel(m_FrogPrefab);
-                    foundimage = true;
-                    testText.text = "Tracking prefab: " + m_FrogPrefab.name;
-                    m_SpawnedFrogPrefab.SetActive(true);
-                }
-            }
-            // m_SpriteImage is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
-            else
-            {
-                if (image.referenceImage.guid == s_FirstImageGUID)
-                {
-                    m_ModelViewManager.ClearModel();
-                    m_SpawnedPlantPrefab.SetActive(false);
-                }
-                else if (image.referenceImage.guid == s_SecondImageGUID)
-                {
-                    m_ModelViewManager.ClearModel();
-                    m_SpawnedFrogPrefab.SetActive(false);
-                }
-            }
-        }
+        //foreach (ARTrackedImage image in obj.updated)
+        //{
+        //    // m_SpriteImage is tracking or tracking with limited state, show visuals and update it's position and rotation
+        //    if (image.trackingState == TrackingState.Tracking)
+        //    {
+        //        if (image.referenceImage.guid == s_FirstImageGUID)
+        //        {
+        //            m_SpawnedPlantPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+        //            m_ModelViewManager.SetModel(m_PlantPrefab);
+        //            foundimage = true;
+        //            testText.text = "Tracking prefab: " + m_PlantPrefab.name;
+        //            m_SpawnedPlantPrefab.SetActive(true);
+        //        }
+        //        else if (image.referenceImage.guid == s_SecondImageGUID)
+        //        {
+        //            m_SpawnedFrogPrefab.transform.SetPositionAndRotation(image.transform.position, image.transform.rotation);
+        //            m_ModelViewManager.SetModel(m_FrogPrefab);
+        //            foundimage = true;
+        //            testText.text = "Tracking prefab: " + m_FrogPrefab.name;
+        //            m_SpawnedFrogPrefab.SetActive(true);
+        //        }
+        //    }
+        //    // m_SpriteImage is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
+        //    else
+        //    {
+        //        if (image.referenceImage.guid == s_FirstImageGUID)
+        //        {
+        //            m_ModelViewManager.ClearModel();
+        //            m_SpawnedPlantPrefab.SetActive(false);
+        //        }
+        //        else if (image.referenceImage.guid == s_SecondImageGUID)
+        //        {
+        //            m_ModelViewManager.ClearModel();
+        //            m_SpawnedFrogPrefab.SetActive(false);
+        //        }
+        //    }
+        //}
 
         // removed, destroy spawned m_Instance
-        foreach (ARTrackedImage image in obj.removed)
-        {
-            if (image.referenceImage.guid == s_FirstImageGUID)
-            {
-                Destroy(m_SpawnedPlantPrefab);
-            }
-            else if (image.referenceImage.guid == s_SecondImageGUID)
-            {
-                Destroy(m_SpawnedFrogPrefab);
-            }
-        }
-        if (!foundimage)
-        {
-            testText.text = "No image tracked.";
-        }
+        //foreach (ARTrackedImage image in obj.removed)
+        //{
+        //    if (image.referenceImage.guid == s_FirstImageGUID)
+        //    {
+        //        Destroy(m_SpawnedPlantPrefab);
+        //    }
+        //    else if (image.referenceImage.guid == s_SecondImageGUID)
+        //    {
+        //        Destroy(m_SpawnedFrogPrefab);
+        //    }
+        //}
+        //if (!foundimage)
+        //{
+        //    testText.text = "No image tracked.";
+        //}
 
     }
 
@@ -272,18 +289,18 @@ public class ImageTrackingObjectManagerWeb : MonoBehaviour
     /// Function that returns the number of currently tracked images
     /// </summary>
     /// <returns>Returns an int that is the number of currently tracked images</returns>
-    public int NumberOfTrackedImages()
-    {
-        m_NumberOfTrackedImages = 0;
-        foreach (ARTrackedImage image in m_ImageManager.trackables)
-        {
-            if (image.trackingState == TrackingState.Tracking)
-            {
-                m_NumberOfTrackedImages++;
-            }
-        }
-        return m_NumberOfTrackedImages;
-    }
+    //public int NumberOfTrackedImages()
+    //{
+    //    m_NumberOfTrackedImages = 0;
+    //    foreach (ARTrackedImage image in m_ImageManager.trackables)
+    //    {
+    //        if (image.trackingState == TrackingState.Tracking)
+    //        {
+    //            m_NumberOfTrackedImages++;
+    //        }
+    //    }
+    //    return m_NumberOfTrackedImages;
+    //}
 
     public void EnableARCanvas()
     {
@@ -293,6 +310,30 @@ public class ImageTrackingObjectManagerWeb : MonoBehaviour
     public void DisableARCanvas()
     {
         m_ARCanvas.SetActive(false);
+    }
+
+    public void UpdateInfo(bool imageSeen , string plantName)
+    {
+        if (imageSeen)
+        {
+
+            if (plantName != null)
+            {
+                resourceManager.UpdateMapLink(plantName);
+                resourceManager.UpdatePlantDialogue(plantName);
+                m_ModelViewManager.SetModel(m_PlantPrefab);
+            }
+        }
+        else
+        {
+            m_ModelViewManager.ClearModel();
+        }
+        
+    }
+
+    public void UpdateInfoButton(bool seen)
+    {
+        UpdateInfo(seen, "PlantARModel");
     }
     #endregion
     #endregion
