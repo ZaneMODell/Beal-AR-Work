@@ -133,11 +133,18 @@ public class ARCanvasManager : MonoBehaviour
         m_MapButton.SetActive(false);
     }
 
+    /// <summary>
+    /// Function that takes a string representing a URL and opens it in a web browser
+    /// </summary>
+    /// <param name="url">String represeting a URL</param>
     public void OpenURL(string url)
     {
         Application.OpenURL(url);
     }
 
+    /// <summary>
+    /// Opens the URL associated with the current plant being viewed
+    /// </summary>
     public void OpenMapURL()
     {
         OpenURL(resourceManager.currentMapLink);

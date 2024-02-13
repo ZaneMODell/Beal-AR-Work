@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ARSceneAndroid.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/ARSceneWeb.unity
+    path: Assets/Scenes/ARSceneWebZappar.unity
     guid: 766b4123eb9245e4bbcbc5cbabd98da2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 334e7eb1dd0d2d8409161d3bc42b1ed1,
